@@ -5,43 +5,47 @@ namespace ConsoleApp43
     {
         private static double ConvertToDouble(string number)
         {
-            double a = 1.0; 
-            if (number[0] == '-')
+            double a = 1.0;
+
+            if (number[0] == '-' || number[0] == '+')
             {
+                int c;
+                if (number[0] == '-') c = -1;
+                else c = 1;
                 if (Check(number[1]))
                 {
                     a = number[1] - 48;
                     bool flag = true;
                     int i = 2;
-                    while(i<number.Length && flag)
+                    while (i < number.Length && flag)
                     {
                         if (Check(number[i]))
                         {
                             a *= 10;
                             a += number[i] - 48;
                         }
-                        else if (number[i] == '.')
+                        else if (number[i] == '.' || number[i] == ',')
                         {
                             flag = false;
                         }
-                        else return 0;
+                        else throw new Exception(); 
                         i++;
                     }
                     double b = 1.0;
-                    for(int j=i;j<number.Length;j++)
+                    for (int j = i; j < number.Length; j++)
                     {
                         if (Check(number[j]))
                         {
                             b *= 0.1;
                             a += (number[j] - 48) * b;
                         }
-                        else return 0;
+                        else throw new Exception();  
                     }
-                    return a*(-1);
+                    return a * (c);
                 }
-                return 0;
+                else throw new Exception(); 
             }
-            else if(Check(number[0]))
+            else if (Check(number[0]))
             {
                 a = number[0] - 48;
                 bool flag = true;
@@ -53,11 +57,11 @@ namespace ConsoleApp43
                         a *= 10;
                         a += number[i] - 48;
                     }
-                    else if (number[i] == '.')
+                    else if (number[i] == '.' || number[i] == ',')
                     {
                         flag = false;
                     }
-                    else return 0;
+                    else throw new Exception(); 
                     i++;
                 }
                 double b = 1.0;
@@ -68,11 +72,11 @@ namespace ConsoleApp43
                         b *= 0.1;
                         a += (number[j] - 48) * b;
                     }
-                    else return 0;
+                    else throw new Exception(); 
                 }
                 return a;
-            } 
-            return 0;
+            }
+            else throw new Exception(); 
 
         }
         static bool Check(char n)
@@ -84,7 +88,7 @@ namespace ConsoleApp43
         }
         static void Main(string[] args)
         {
-             
+            Console.WriteLine(ConvertToDouble("+1,0006"));    
         }
     }
 }
